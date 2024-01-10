@@ -1,6 +1,4 @@
 
-let EleccionUsuario = prompt("Ingrese la plataforma para ver sus planes");
-
 // Información de Netflix
 let netflix = {
   nombre: 'Netflix',
@@ -43,33 +41,49 @@ let spotify = {
   }
 };
 
-// Función para calcular impuestos
+
 function calcularImpuestos(precio, impuestos) {
-  return (precio * impuestos) / 100;
+  return precio * (impuestos / 100);
 }
 
-if (EleccionUsuario.toLowerCase() === netflix.nombre.toLowerCase()) {
-  let EleccionPlanNetflix = prompt("Seleccione qué plan quiere calcular: Basico, Estandar o Premium");
 
-  if (netflix.planes.hasOwnProperty(EleccionPlanNetflix.toLowerCase())) {
-    let plan = netflix.planes[EleccionPlanNetflix.toLowerCase()];
-    let ValorImpuestos = calcularImpuestos(plan.precio, plan.impuestos);
-    let ValorFinal = plan.precio + ValorImpuestos;
-    console.log(`El valor final del plan ${EleccionPlanNetflix} en ${netflix.nombre} es: ${ValorFinal}`);
-  } else {
-    console.log("¡El plan ingresado no es válido!");
-  }
-} else if (EleccionUsuario.toLowerCase() === spotify.nombre.toLowerCase()) {
-  let EleccionPlanSpotify = prompt("Seleccione qué plan quiere calcular: Individual, Duo, Familiar o Estudiantes");
+document.addEventListener("DOMContentLoaded", function () {
+  let formulario = document.getElementById('formulario');
+  let resultadoElement = document.getElementById('resultado');
+  let tarjetaElement = document.getElementById('tarjeta');
 
-  if (spotify.planes.hasOwnProperty(EleccionPlanSpotify.toLowerCase())) {
-    let plan = spotify.planes[EleccionPlanSpotify.toLowerCase()];
-    let ValorImpuestos = calcularImpuestos(plan.precio, plan.impuestos);
-    let ValorFinal = plan.precio + ValorImpuestos;
-    console.log(`El valor final del plan ${EleccionPlanSpotify} en ${spotify.nombre} es: ${ValorFinal}`);
-  } else {
-    console.log("¡El plan ingresado no es válido!");
-  }
-} else {
-  console.log("¡La plataforma ingresada no es válida!");
-}
+  formulario.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let EleccionUsuario = document.getElementById('plataforma').value;
+    let EleccionPlan = document.getElementById('plan').value;
+
+    let plataforma, planes;
+
+    if (EleccionUsuario.toLowerCase() === 'netflix') {
+      plataforma = netflix;
+      planes = netflix.planes;
+    } else if (EleccionUsuario.toLowerCase() === 'spotify') {
+      plataforma = spotify;
+      planes = spotify.planes;
+    } else {
+      resultadoElement.textContent = "¡La plataforma ingresada no es válida!";
+      return;
+    }
+
+    if (planes.hasOwnProperty(EleccionPlan.toLowerCase())) {
+      let plan = planes[EleccionPlan.toLowerCase()];
+      let ValorImpuestos = calcularImpuestos(plan.precio, plan.impuestos);
+      let ValorFinal = plan.precio + ValorImpuestos;
+
+      
+      resultadoElement.textContent = `El valor final del plan ${EleccionPlan} en ${plataforma.nombre} es: ${ValorFinal}`;
+      tarjetaElement.style.display = 'block'; 
+    } else {
+      resultadoElement.textContent = "¡El plan ingresado no es válido!";
+    }
+
+    
+    localStorage.setItem('resultado', resultadoElement.textContent);
+  });
+});

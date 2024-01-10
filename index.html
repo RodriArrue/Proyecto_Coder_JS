@@ -7,8 +7,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-   <h1> CALCULADOR </h1>
 
+    <h1 id="titulo"> CALCULADOR DE IMPUESTOS </h1>
+  
+  
+  <div id="tarjeta">
+        <div id="resultado"></div>
+      </div>
+    
+      <form id="formulario">
+        <label for="plataforma">Selecciona la plataforma:</label>
+        <select id="plataforma">
+          <option value="netflix">Netflix</option>
+          <option value="spotify">Spotify</option>
+        </select>
+    
+        <label for="plan">Selecciona el plan:</label>
+        <select id="plan">
+          <option value="basico">Básico</option>
+          <option value="estandar">Estándar</option>
+          <option value="premium">Premium</option>
+          <option value="individual">Individual</option>
+          <option value="duo">Duo</option>
+          <option value="familiar">Familiar</option>
+          <option value="estudiantes">Estudiantes</option>
+        </select>
+    
+        <button type="submit">Calcular</button>
+      </form>
+
+   
 
 <script src="main.js"> </script> 
 </body>

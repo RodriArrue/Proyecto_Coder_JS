@@ -1,0 +1,103 @@
+@font-face {
+  font-family: mifuente;
+  src: url(font/RETROTECH.ttf) format('ttf');
+}
+ 
+#titulo{
+  font-family: mifuente, sans-serif;
+  color: #1db954;
+  position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1db954;
+    color: #212121;
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #212121
+}
+  
+#tarjeta {
+  background-color: #1db954;
+  padding: 20px;
+  margin-top: 500px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+  
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+  
+select, button {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+/* Estilo básico del formulario */
+form {
+  background-color: #1db954;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 128, 0, 0.2);
+  margin-right: 500px;
+  
+}
+
+/* Estilo de etiquetas y campos de entrada */
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #212121; /* Verde oscuro */
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #457e59; /* Verde oscuro */
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Estilo de botones */
+button {
+  background-color: #1db954; /* Verde principal */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #457e59; /* Verde más oscuro al pasar el ratón */
+}
+
+/* Estilo de mensajes de error o éxito */
+.error {
+  color: #ff0000; /* Rojo para mensajes de error */
+  font-weight: bold;
+}
+
+.success {
+  color: #1db954; /* Verde oscuro para mensajes de éxito */
+}
