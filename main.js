@@ -1,5 +1,4 @@
 
-// Información de Netflix
 let netflix = {
   nombre: 'Netflix',
   planes: {
@@ -41,11 +40,29 @@ let spotify = {
   }
 };
 
+function obtenerInformacionDesdeServicio(plataforma, callback) {
+  // Aquí puedes realizar una solicitud "fetch" a un servicio web que proporciona información adicional sobre los planes
+  // Puedes ajustar la URL según tus necesidades
+  fetch(`URL_DEL_SERVICIO_WEB/${plataforma.nombre.toLowerCase()}`)
+    .then(response => response.json())
+    .then(data => {
+      // Actualizar la información local con los datos obtenidos
+      plataforma.planes = data.planes;
+      callback();
+    })
+    .catch(error => {
+      console.error('Error al obtener información desde el servicio web', error);
+      callback();
+    });
+}
+
+function actualizarInformacionLocal(plataforma, callback) {
+  obtenerInformacionDesdeServicio(plataforma, callback);
+}
 
 function calcularImpuestos(precio, impuestos) {
   return precio * (impuestos / 100);
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
   let formulario = document.getElementById('formulario');
@@ -62,28 +79,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (EleccionUsuario.toLowerCase() === 'netflix') {
       plataforma = netflix;
-      planes = netflix.planes;
+      actualizarInformacionLocal(plataforma, function () {
+        procesarSeleccion(plataforma, EleccionPlan);
+      });
     } else if (EleccionUsuario.toLowerCase() === 'spotify') {
       plataforma = spotify;
-      planes = spotify.planes;
+      actualizarInformacionLocal(plataforma, function () {
+        procesarSeleccion(plataforma, EleccionPlan);
+      });
     } else {
       resultadoElement.textContent = "¡La plataforma ingresada no es válida!";
       return;
     }
+  });
+
+  function procesarSeleccion(plataforma, EleccionPlan) {
+    let planes = plataforma.planes;
 
     if (planes.hasOwnProperty(EleccionPlan.toLowerCase())) {
       let plan = planes[EleccionPlan.toLowerCase()];
       let ValorImpuestos = calcularImpuestos(plan.precio, plan.impuestos);
       let ValorFinal = plan.precio + ValorImpuestos;
 
-      
       resultadoElement.textContent = `El valor final del plan ${EleccionPlan} en ${plataforma.nombre} es: ${ValorFinal}`;
-      tarjetaElement.style.display = 'block'; 
+      tarjetaElement.style.display = 'block';
     } else {
       resultadoElement.textContent = "¡El plan ingresado no es válido!";
     }
 
-    
     localStorage.setItem('resultado', resultadoElement.textContent);
-  });
+  }
 });
